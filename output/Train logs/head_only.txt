@@ -1,0 +1,49 @@
+🔧 Training on: cuda | FINETUNE_MODE=head_only
+📦 Params total: 11,358,535 | trainable: 182,023
+Epoch 01/30 | Train 1.2321 | Val 1.1225 | ValAcc 51.96% | ⏱️ 340.95s (saved)
+Epoch 02/30 | Train 1.1597 | Val 1.1058 | ValAcc 53.56% | ⏱️ 258.34s (saved)
+Epoch 03/30 | Train 1.1395 | Val 1.0964 | ValAcc 53.08% | ⏱️ 239.00s (saved)
+Epoch 04/30 | Train 1.1256 | Val 1.0890 | ValAcc 53.63% | ⏱️ 236.35s (saved)
+Epoch 05/30 | Train 1.1178 | Val 1.0799 | ValAcc 54.51% | ⏱️ 238.31s (saved)
+Epoch 06/30 | Train 1.1032 | Val 1.0721 | ValAcc 55.47% | ⏱️ 236.92s (saved)
+Epoch 07/30 | Train 1.0930 | Val 1.0810 | ValAcc 54.82% | ⏱️ 230.39s 
+Epoch 08/30 | Train 1.0899 | Val 1.0634 | ValAcc 55.50% | ⏱️ 225.06s (saved)
+Epoch 09/30 | Train 1.0848 | Val 1.0635 | ValAcc 56.05% | ⏱️ 234.43s 
+Epoch 10/30 | Train 1.0770 | Val 1.0757 | ValAcc 55.16% | ⏱️ 241.70s 
+Epoch 11/30 | Train 1.0661 | Val 1.0568 | ValAcc 55.64% | ⏱️ 281.90s (saved)
+Epoch 12/30 | Train 1.0613 | Val 1.0600 | ValAcc 54.99% | ⏱️ 276.62s 
+Epoch 13/30 | Train 1.0568 | Val 1.0630 | ValAcc 55.84% | ⏱️ 265.24s 
+Epoch 14/30 | Train 1.0481 | Val 1.0629 | ValAcc 55.23% | ⏱️ 283.05s 
+Epoch 15/30 | Train 1.0426 | Val 1.0608 | ValAcc 55.64% | ⏱️ 281.72s 
+Epoch 16/30 | Train 1.0200 | Val 1.0526 | ValAcc 56.35% | ⏱️ 275.83s (saved)
+Epoch 17/30 | Train 1.0072 | Val 1.0515 | ValAcc 55.50% | ⏱️ 267.05s (saved)
+Epoch 18/30 | Train 1.0015 | Val 1.0487 | ValAcc 56.42% | ⏱️ 253.95s (saved)
+Epoch 19/30 | Train 0.9984 | Val 1.0472 | ValAcc 55.88% | ⏱️ 251.64s (saved)
+Epoch 20/30 | Train 0.9935 | Val 1.0478 | ValAcc 55.78% | ⏱️ 247.48s 
+Epoch 21/30 | Train 0.9834 | Val 1.0480 | ValAcc 55.64% | ⏱️ 288.22s 
+Epoch 22/30 | Train 0.9826 | Val 1.0551 | ValAcc 55.95% | ⏱️ 278.38s 
+Epoch 23/30 | Train 0.9760 | Val 1.0543 | ValAcc 56.49% | ⏱️ 217.49s 
+Epoch 24/30 | Train 0.9565 | Val 1.0539 | ValAcc 56.32% | ⏱️ 239.04s 
+Epoch 25/30 | Train 0.9556 | Val 1.0568 | ValAcc 56.05% | ⏱️ 227.82s 
+Epoch 26/30 | Train 0.9483 | Val 1.0573 | ValAcc 56.01% | ⏱️ 222.47s 
+Epoch 27/30 | Train 0.9475 | Val 1.0620 | ValAcc 56.01% | ⏱️ 222.96s 
+⛔ Early stopping at epoch 27. Restoring best weights…
+
+[TEST] Evaluasi model terbaik:
+🎯 Test Accuracy: 56.08%
+
+Classification Report:
+
+              precision    recall  f1-score   support
+
+      RULA-1       0.20      0.04      0.07        23
+      RULA-2       0.29      0.16      0.20        38
+      RULA-3       0.00      0.00      0.00        57
+      RULA-4       0.20      0.01      0.01       134
+      RULA-5       0.29      0.07      0.11       240
+      RULA-6       0.49      0.58      0.53      1080
+      RULA-7       0.63      0.73      0.68      1363
+
+    accuracy                           0.56      2935
+   macro avg       0.30      0.23      0.23      2935
+weighted avg       0.51      0.56      0.52      2935

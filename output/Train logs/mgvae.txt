@@ -1,0 +1,58 @@
+
+🔧 Training on: cuda
+[AUDIT] train_over.csv | label_col='rula_score_final' | total=23668 | unik=[1, 2, 3, 4, 5, 6, 7]
+[AUDIT] val_real.csv | label_col='rula_score_final' | total=2935 | unik=[1, 2, 3, 4, 5, 6, 7]
+[AUDIT] test_real.csv | label_col='rula_score_final' | total=2935 | unik=[1, 2, 3, 4, 5, 6, 7]
+[CHECK] TRAIN: min=0, max=6 (harus 0..6), unik=[0, 3, 4, 5, 6]
+[CHECK] VAL: min=0, max=2 (harus 0..6), unik=[0, 1, 2]
+[CHECK] TEST: min=0, max=2 (harus 0..6), unik=[0, 1, 2]
+[MGVAE pretrain] epoch 1/1 loss=0.7194
+✅ Epoch 1/30 - Train Loss: 2.9250 - Val Loss: 1.0529 - Val Acc: 58.19% - ⏱️ 336.53s (saved)
+📉 Epoch 2/30 - Train Loss: 2.3666 - Val Loss: 1.0879 - Val Acc: 56.56% - ⏱️ 368.93s
+📉 Epoch 3/30 - Train Loss: 2.1202 - Val Loss: 1.0697 - Val Acc: 59.59% - ⏱️ 358.81s
+📉 Epoch 4/30 - Train Loss: 1.9323 - Val Loss: 1.2023 - Val Acc: 59.18% - ⏱️ 339.62s
+📉 Epoch 5/30 - Train Loss: 1.7201 - Val Loss: 1.2654 - Val Acc: 58.30% - ⏱️ 358.53s
+📉 Epoch 6/30 - Train Loss: 1.5409 - Val Loss: 1.5942 - Val Acc: 59.69% - ⏱️ 356.34s
+📉 Epoch 7/30 - Train Loss: 1.3931 - Val Loss: 1.8286 - Val Acc: 57.44% - ⏱️ 341.70s
+📉 Epoch 8/30 - Train Loss: 1.3511 - Val Loss: 1.8781 - Val Acc: 58.06% - ⏱️ 341.39s
+📉 Epoch 9/30 - Train Loss: 1.2805 - Val Loss: 2.1334 - Val Acc: 58.71% - ⏱️ 344.10s
+📉 Epoch 10/30 - Train Loss: 1.2031 - Val Loss: 2.1852 - Val Acc: 57.41% - ⏱️ 325.34s
+📉 Epoch 11/30 - Train Loss: 1.2324 - Val Loss: 2.2526 - Val Acc: 59.08% - ⏱️ 340.68s
+📉 Epoch 12/30 - Train Loss: 1.2143 - Val Loss: 2.4066 - Val Acc: 58.91% - ⏱️ 328.80s
+📉 Epoch 13/30 - Train Loss: 1.1710 - Val Loss: 2.4140 - Val Acc: 57.96% - ⏱️ 323.40s
+📉 Epoch 14/30 - Train Loss: 1.1642 - Val Loss: 2.4654 - Val Acc: 58.23% - ⏱️ 320.50s
+📉 Epoch 15/30 - Train Loss: 1.1756 - Val Loss: 2.5028 - Val Acc: 59.56% - ⏱️ 320.26s
+📉 Epoch 16/30 - Train Loss: 1.1552 - Val Loss: 2.6540 - Val Acc: 58.81% - ⏱️ 319.15s
+📉 Epoch 17/30 - Train Loss: 1.1374 - Val Loss: 2.5033 - Val Acc: 59.05% - ⏱️ 315.98s
+📉 Epoch 18/30 - Train Loss: 1.1104 - Val Loss: 2.6532 - Val Acc: 58.02% - ⏱️ 325.53s
+📉 Epoch 19/30 - Train Loss: 1.1429 - Val Loss: 2.6126 - Val Acc: 58.94% - ⏱️ 316.30s
+📉 Epoch 20/30 - Train Loss: 1.1610 - Val Loss: 2.6899 - Val Acc: 58.43% - ⏱️ 317.49s
+📉 Epoch 21/30 - Train Loss: 1.1209 - Val Loss: 2.5514 - Val Acc: 58.50% - ⏱️ 321.67s
+📉 Epoch 22/30 - Train Loss: 1.1152 - Val Loss: 2.5799 - Val Acc: 58.88% - ⏱️ 326.75s
+📉 Epoch 23/30 - Train Loss: 1.1194 - Val Loss: 2.6341 - Val Acc: 58.98% - ⏱️ 322.12s
+📉 Epoch 24/30 - Train Loss: 1.0986 - Val Loss: 2.5785 - Val Acc: 58.57% - ⏱️ 334.82s
+📉 Epoch 25/30 - Train Loss: 1.0912 - Val Loss: 2.6079 - Val Acc: 58.53% - ⏱️ 322.35s
+📉 Epoch 26/30 - Train Loss: 1.0686 - Val Loss: 2.7069 - Val Acc: 59.15% - ⏱️ 331.58s
+📉 Epoch 27/30 - Train Loss: 1.0514 - Val Loss: 2.6124 - Val Acc: 58.84% - ⏱️ 325.56s
+📉 Epoch 28/30 - Train Loss: 1.0324 - Val Loss: 2.6298 - Val Acc: 59.01% - ⏱️ 321.52s
+📉 Epoch 29/30 - Train Loss: 1.0507 - Val Loss: 2.5894 - Val Acc: 58.74% - ⏱️ 318.66s
+📉 Epoch 30/30 - Train Loss: 1.0489 - Val Loss: 2.6152 - Val Acc: 58.36% - ⏱️ 325.38s
+
+[TEST] Evaluasi model terbaik:
+🎯 Test Accuracy: 59.97%
+
+Classification Report:
+
+              precision    recall  f1-score   support
+
+      RULA-1       0.00      0.00      0.00        34
+      RULA-2       0.00      0.00      0.00        42
+      RULA-3       0.00      0.00      0.00        52
+      RULA-4       0.15      0.14      0.14       146
+      RULA-5       0.00      0.00      0.00       267
+      RULA-6       0.61      0.58      0.59      1059
+      RULA-7       0.63      0.85      0.72      1335
+
+    accuracy                           0.60      2935
+   macro avg       0.20      0.22      0.21      2935
+weighted avg       0.51      0.60      0.55      2935

@@ -1,0 +1,32 @@
+🔧 Training on: cuda | FINETUNE_MODE=last_block
+📦 Params total: 11,358,535 | trainable: 8,575,751
+Epoch 01/30 | Train 1.1670 | Val 1.0276 | ValAcc 56.46% | ⏱️ 350.50s (saved)
+Epoch 02/30 | Train 0.9636 | Val 1.0217 | ValAcc 58.06% | ⏱️ 335.90s (saved)
+Epoch 03/30 | Train 0.7321 | Val 1.1581 | ValAcc 55.50% | ⏱️ 243.58s 
+Epoch 04/30 | Train 0.5125 | Val 1.5173 | ValAcc 56.22% | ⏱️ 221.06s 
+Epoch 05/30 | Train 0.3938 | Val 1.7016 | ValAcc 55.50% | ⏱️ 234.87s 
+Epoch 06/30 | Train 0.3231 | Val 2.1050 | ValAcc 55.26% | ⏱️ 233.72s 
+Epoch 07/30 | Train 0.2186 | Val 2.5452 | ValAcc 55.09% | ⏱️ 237.85s 
+Epoch 08/30 | Train 0.1681 | Val 3.3352 | ValAcc 55.57% | ⏱️ 235.50s 
+Epoch 09/30 | Train 0.1539 | Val 3.3010 | ValAcc 56.01% | ⏱️ 235.27s 
+Epoch 10/30 | Train 0.1254 | Val 3.9455 | ValAcc 56.70% | ⏱️ 320.21s 
+⛔ Early stopping at epoch 10. Restoring best weights…
+
+[TEST] Evaluasi model terbaik:
+🎯 Test Accuracy: 59.59%
+
+Classification Report:
+
+              precision    recall  f1-score   support
+
+      RULA-1       0.00      0.00      0.00        23
+      RULA-2       0.00      0.00      0.00        38
+      RULA-3       0.17      0.23      0.19        57
+      RULA-4       0.00      0.00      0.00       134
+      RULA-5       0.25      0.20      0.22       240
+      RULA-6       0.58      0.61      0.59      1080
+      RULA-7       0.67      0.76      0.71      1363
+
+    accuracy                           0.60      2935
+   macro avg       0.24      0.26      0.25      2935
+weighted avg       0.55      0.60      0.57      2935
