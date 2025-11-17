@@ -10,7 +10,8 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import transforms
 from torchvision.models import resnet18, ResNet18_Weights
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader, Subset
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
 from dataset_dual_input import DualInputRULADataset
 
@@ -98,11 +99,36 @@ def train_last_3blocks():
     print(f"🔧 Training on: {device} | FINETUNE_MODE=last_3blocks")
     
     dataset = DualInputRULADataset(csv_file=csv_path, image_dir=image_dir, transform=image_transform)
-    total = len(dataset)
-    train_len = int(0.8 * total)
-    val_len = int(0.1 * total)
-    test_len = total - train_len - val_len
-    train_set, val_set, test_set = random_split(dataset, [train_len, val_len, test_len])
+    
+    # === STRATIFIED SPLIT 80-10-10 ===
+    # Dapatkan semua labels dari dataset
+    all_labels = []
+    for i in range(len(dataset)):
+        _, _, label = dataset[i]
+        all_labels.append(label.item() if torch.is_tensor(label) else label)
+    
+    all_labels = np.array(all_labels)
+    
+    # First split: train vs temp (80% vs 20%)
+    train_indices, temp_indices = train_test_split(
+        range(len(dataset)),
+        test_size=0.2,
+        random_state=seed,
+        stratify=all_labels
+    )
+    
+    # Second split: val vs test (dari 20% temp, bagi menjadi 10% val dan 10% test)
+    val_indices, test_indices = train_test_split(
+        temp_indices,
+        test_size=0.5,
+        random_state=seed,
+        stratify=[all_labels[i] for i in temp_indices]
+    )
+    
+    # Create subsets menggunakan indices yang sudah di-stratify
+    train_set = Subset(dataset, train_indices)
+    val_set = Subset(dataset, val_indices)
+    test_set = Subset(dataset, test_indices)
 
     train_loader = DataLoader(train_set, batch_size=32, shuffle=True, num_workers=2)
     val_loader = DataLoader(val_set, batch_size=32, shuffle=False, num_workers=2)
