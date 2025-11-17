@@ -12,6 +12,7 @@ import torch.nn.functional as F
 from torchvision import transforms
 from torchvision.models import resnet18, ResNet18_Weights
 from torch.utils.data import DataLoader, Subset, WeightedRandomSampler
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
 from dataset_dual_input_FULL import DualInputRULADataset
 
@@ -159,32 +160,44 @@ def vae_loss(recon, target, mu, logvar, beta=0.1):
 # === TRAIN ===
 def train():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"🔧 Training on: {device} | FINETUNE_MODE=last_3blocks")
+    print(f"🔧 Training on: {device} | FINETUNE_MODE=last_3blocks | MGVAE={USE_MGVAE}")
 
     dataset = DualInputRULADataset(csv_file=csv_path, image_dir=image_dir, transform=image_transform)
 
-    # Stratified 80/10/10
-    labels_all = pd.Series(dataset.labels)
-    def stratified_indices(y, tr=0.8, va=0.1, seed=42):
-        rng = np.random.RandomState(seed)
-        train_idx, val_idx, test_idx = [], [], []
-        for c in sorted(np.unique(y.values)):
-            idx = np.where(y.values == c)[0]
-            rng.shuffle(idx); n = len(idx)
-            n_tr = int(tr * n); n_va = int(va * n)
-            train_idx += idx[:n_tr].tolist()
-            val_idx   += idx[n_tr:n_tr+n_va].tolist()
-            test_idx  += idx[n_tr+n_va:].tolist()
-        rng.shuffle(train_idx); rng.shuffle(val_idx); rng.shuffle(test_idx)
-        return train_idx, val_idx, test_idx
+    # === STRATIFIED SPLIT 80-10-10 (SAMA SEPERTI BASELINE) ===
+    # Dapatkan semua labels dari dataset
+    all_labels = []
+    for i in range(len(dataset)):
+        _, _, label = dataset[i]
+        all_labels.append(label.item() if torch.is_tensor(label) else label)
+    
+    all_labels = np.array(all_labels)
+    
+    # First split: train vs temp (80% vs 20%)
+    train_indices, temp_indices = train_test_split(
+        range(len(dataset)),
+        test_size=0.2,
+        random_state=seed,
+        stratify=all_labels
+    )
+    
+    # Second split: val vs test (dari 20% temp, bagi menjadi 10% val dan 10% test)
+    val_indices, test_indices = train_test_split(
+        temp_indices,
+        test_size=0.5,
+        random_state=seed,
+        stratify=[all_labels[i] for i in temp_indices]
+    )
+    
+    # Create subsets menggunakan indices yang sudah di-stratify
+    train_set = Subset(dataset, train_indices)
+    val_set = Subset(dataset, val_indices)
+    test_set = Subset(dataset, test_indices)
 
-    train_ids, val_ids, test_ids = stratified_indices(labels_all, 0.8, 0.1, seed)
-    train_set = Subset(dataset, train_ids)
-    val_set   = Subset(dataset, val_ids)
-    test_set  = Subset(dataset, test_ids)
+    print(f"📊 Dataset split: Train={len(train_set)}, Val={len(val_set)}, Test={len(test_set)}")
 
     # Class weights
-    train_labels = labels_all.iloc[train_ids].values
+    train_labels = [all_labels[i] for i in train_indices]
     counts = np.bincount(train_labels, minlength=7).astype(np.float32)
     beta = 0.9999
     effective_num = 1.0 - np.power(beta, counts)
@@ -240,7 +253,7 @@ def train():
             kp.append(vals)
         return np.stack(kp, axis=0)
 
-    kp_train = get_kp_matrix(dataset, train_ids)
+    kp_train = get_kp_matrix(dataset, train_indices)
     kp_mean = kp_train.mean(axis=0).astype('float32')
     kp_std  = kp_train.std(axis=0).astype('float32')
     kp_std[kp_std < 1e-6] = 1e-6
@@ -255,7 +268,7 @@ def train():
         opt_VAE = optim.Adam(list(Enc.parameters()) + list(Dec.parameters()), lr=MG_VAE_LR)
 
         # pretrain di mayoritas
-        maj_idx = [i for i in train_ids if int(labels_all.iloc[i]) in majority_set]
+        maj_idx = [i for i in train_indices if int(all_labels[i]) in majority_set]
         maj_set = Subset(dataset, maj_idx)
         maj_loader = DataLoader(maj_set, batch_size=64, shuffle=True, num_workers=2)
 
