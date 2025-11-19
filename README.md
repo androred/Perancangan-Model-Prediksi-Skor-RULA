@@ -13,8 +13,7 @@ Penelitian ini mengembangkan model deep learning untuk mengklasifikasikan skor R
 - **Dual-Input Architecture**: ResNet18 untuk image features + Keypoints coordinates
 - **5 Fine-Tuning Strategies**: head_only, last_block, last_2blocks, last_3blocks, full_layer
 - **Traditional Oversampling**: use 3000 & 8000 sample per class, last_3blocks fine tuning
-- **Advanced Oversampling**: IB-GAN (Information Bottleneck Generative Adversarial Networks) dan MGVAE (Multi-Group Variational Autoencoder )
-- **Class Imbalance Handling**: Focal Loss, Weighted Sampling, Synthetic Data Generation
+- **Advanced Oversampling**: IB-GAN (Information Bottleneck Generative Adversarial Networks) dan MGVAE (Multi-class Guided Variational Autoencoder )
 
 ## 🚀 Features
 
